@@ -9,6 +9,7 @@ Description: Wraps 'ggdiagram' and 'ggarrow' with opinionated defaults for
     'library(daggr)' replaces ~30 lines of boilerplate setup.
 License: MIT + file LICENSE
 Imports:
+    arrowheadr,
     ggarrow,
     ggdiagram (>= 0.1.1),
     ggplot2 (>= 4.0.0),

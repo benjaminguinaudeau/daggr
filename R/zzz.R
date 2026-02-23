@@ -1,6 +1,4 @@
 .onLoad <- function(libname, pkgname) {
-  arrowhead_matrix <- ggarrow::arrow_head_line(
-    angle = 30, lineend = "round"
-  )(1, 1)
+  arrowhead_matrix <- arrowheadr::arrow_head_deltoid(d = 2.3, n = 100)
   ggdiagram::set_default_arrowhead(arrowhead_matrix)
 }

@@ -24,7 +24,9 @@ Drawing DAGs with `ggdiagram` and `ggarrow` is powerful but requires ~30 lines
 of boilerplate (helper functions, arrowhead config, theme setup). `daggr` wraps
 all of that so you can focus on the graph itself.
 
-## 1. Fork (Confounder)
+## Canonical DAG Structures
+
+### 1. Fork (Confounder)
 
 A common cause **Z** creates a spurious association between **X** and **Y**.
 Conditioning on **Z** blocks the backdoor path.
@@ -42,7 +44,7 @@ ggdiagram(font_size = 14) +
   ggplot2::labs(title = "Fork (Confounder)")
 ```
 
-## 2. Pipe (Mediator)
+### 2. Pipe (Mediator)
 
 The effect of **X** on **Y** is transmitted entirely through the mediator **M**.
 Conditioning on **M** blocks the causal path.
@@ -60,7 +62,7 @@ ggdiagram(font_size = 14) +
   ggplot2::labs(title = "Pipe (Mediator)")
 ```
 
-## 3. Collider
+### 3. Collider
 
 **X** and **Y** are independent causes of **C**. Conditioning on the collider
 **C** opens a spurious path between **X** and **Y**.
@@ -78,7 +80,7 @@ ggdiagram(font_size = 14) +
   ggplot2::labs(title = "Collider")
 ```
 
-## 4. Instrumental Variable
+### 4. Instrumental Variable
 
 **Z** is an instrument: it affects **Y** only through **X**. The unmeasured
 confounder **U** biases the naive **X -> Y** estimate, but the instrument
@@ -101,7 +103,7 @@ ggdiagram(font_size = 14) +
   ggplot2::labs(title = "Instrumental Variable")
 ```
 
-## 5. Front-Door (Smoking-Tar-Cancer)
+### 5. Front-Door (Smoking-Tar-Cancer)
 
 Pearl's canonical example. Unmeasured **Genetics** confounds **Smoking** and
 **Cancer**, but the front-door path through **Tar** allows identification.
@@ -125,7 +127,7 @@ ggdiagram(font_size = 14) +
   ggplot2::labs(title = "Front-Door Criterion")
 ```
 
-## 6. M-Bias (Butterfly)
+### 6. M-Bias (Butterfly)
 
 Adjusting for the collider **M** *increases* bias. **U1** and **U2** are
 unmeasured, but conditioning on **M** opens a spurious path between **X** and
@@ -152,7 +154,7 @@ ggdiagram(font_size = 14) +
   ggplot2::labs(title = "M-Bias (Butterfly)")
 ```
 
-## 7. Simpson's Paradox (Berkeley Admissions)
+### 7. Simpson's Paradox (Berkeley Admissions)
 
 **Gender** affects both **Department** choice and **Admission** directly. The
 marginal association reverses when conditioning on **Department**.
@@ -171,4 +173,109 @@ ggdiagram(font_size = 14) +
   dag_connect(Gender, Admission, arc_bend = 0.4) +
   theme_dag() +
   ggplot2::labs(title = "Simpson's Paradox")
+```
+
+## Advanced Features
+
+### DGP vs Measurement
+
+Use `annotate()` to label layers, and `linetype` to distinguish causal
+relationships from observed associations.
+
+```{r dgp-measurement, fig.cap = "DGP vs Measurement", fig.width = 8, fig.height = 5}
+# DGP layer
+dgp_ideo  <- dag_ellipse("Idéologie")
+dgp_behav <- dag_ellipse("Comportement") |>
+  place(dgp_ideo, "right", sep = 4)
+
+# Measurement layer
+meas_ideo  <- dag_ellipse("Idéologie") |>
+  place(dgp_ideo, "bottom", sep = 3)
+meas_behav <- dag_ellipse("Comportement") |>
+  place(meas_ideo, "right", sep = 4)
+
+ggdiagram(font_size = 14) +
+  dgp_ideo + dgp_behav +
+  meas_ideo + meas_behav +
+  dag_connect(dgp_ideo, dgp_behav, linetype = "solid") +
+  dag_connect(meas_behav, meas_ideo, linetype = "dashed") +
+  ggplot2::annotate("text",
+    x = mean(c(dgp_ideo@center@x, dgp_behav@center@x)),
+    y = 3, label = "DGP", fontface = "bold", size = 6) +
+  ggplot2::annotate("text",
+    x = mean(c(meas_ideo@center@x, meas_behav@center@x)),
+    y = -3, label = "Measurement", fontface = "bold", size = 6) +
+  theme_dag()
+```
+
+### Mixed Node Shapes and Linetypes
+
+Use `dag_rectangle()` for observed/constructed variables and different
+`linetype` values to encode edge semantics (e.g., definitional links vs causal
+effects).
+
+```{r polsci, fig.cap = "Political Attitudes DAG", fig.width = 9, fig.height = 7}
+A <- dag_ellipse("Intérêt politique")
+B <- dag_ellipse("Autoplacement<br>Gauche-Droite") |>
+  place(A, "top left", sep = 3.5)
+C <- dag_ellipse("A voté<br>à la dernière<br>élection") |>
+  place(A, "top right", sep = 3.5)
+D <- dag_rectangle("Extrémisme", fill = "darkred") |>
+  place(B, "top", sep = 2.5)
+E <- dag_rectangle("Participation<br>électorale", fill = "darkred") |>
+  place(C, "top", sep = 2.5)
+
+ggdiagram() +
+  A + B + C + D + E +
+  dag_connect(D, B, linetype = 4) +
+  dag_connect(E, C, linetype = 4) +
+  dag_connect(A, B) +
+  dag_connect(A, C) +
+  dag_connect(B, C) +
+  dag_connect(D, E, linetype = 3) +
+  theme_dag()
+```
+
+### Multiline Labels
+
+Node labels support `<br>` for line breaks, which is useful for longer variable
+names.
+
+```{r multiline, fig.cap = "Multiline Labels"}
+X <- dag_ellipse("Years of<br>Education")
+M <- dag_ellipse("Political<br>Knowledge") |>
+  place(X, "right", sep = 3.5)
+Y <- dag_ellipse("Voter<br>Turnout") |>
+  place(M, "right", sep = 3.5)
+
+ggdiagram(font_size = 14) +
+  X + M + Y +
+  dag_connect(X, M) +
+  dag_connect(M, Y) +
+  dag_connect(X, Y, arc_bend = -0.4) +
+  theme_dag()
+```
+
+### Custom Colors
+
+Change `fill` to distinguish different types of variables (e.g., treatment,
+outcome, unmeasured).
+
+```{r colors, fig.cap = "Custom Node Colors", fig.width = 8, fig.height = 5}
+Treatment <- dag_ellipse("Treatment", fill = "#2E7D32")
+Outcome   <- dag_ellipse("Outcome", fill = "#C62828") |>
+  place(Treatment, "right", sep = 4)
+Confounder <- dag_ellipse("Confounder", fill = "#708090") |>
+  place(Treatment, "above right", sep = 2.5)
+Mediator   <- dag_ellipse("Mediator") |>
+  place(Treatment, "below right", sep = 2.5)
+
+ggdiagram(font_size = 14) +
+  Treatment + Outcome + Confounder + Mediator +
+  dag_connect(Treatment, Outcome) +
+  dag_connect(Treatment, Mediator) +
+  dag_connect(Mediator, Outcome) +
+  dag_connect(Confounder, Treatment) +
+  dag_connect(Confounder, Outcome) +
+  theme_dag()
 ```
