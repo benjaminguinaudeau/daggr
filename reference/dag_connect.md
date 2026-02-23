@@ -53,7 +53,7 @@ dag_connect(A, B)
 #> 
 #> ── <ob_segment> 
 #> # A tibble: 1 × 9
-#>       x     y  xend  yend alpha arrow_head     arrowhead_length color resect
-#>   <dbl> <dbl> <dbl> <dbl> <dbl> <list>                    <dbl> <chr>  <dbl>
-#> 1     3     0   5.5     0     1 <dbl [64 × 2]>                7 black      2
+#>       x     y  xend  yend alpha arrow_head      arrowhead_length color resect
+#>   <dbl> <dbl> <dbl> <dbl> <dbl> <list>                     <dbl> <chr>  <dbl>
+#> 1     3     0   5.5     0     1 <dbl [200 × 2]>                7 black      2
 ```

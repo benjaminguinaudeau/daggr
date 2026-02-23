@@ -67,8 +67,11 @@ arrowhead config, theme setup). <code>daggr</code> wraps all of that so
 you can focus on the graph itself.</p>
 </div>
 <div class="section level2">
-<h2 id="fork-confounder">1. Fork (Confounder)<a class="anchor" aria-label="anchor" href="#fork-confounder"></a>
+<h2 id="canonical-dag-structures">Canonical DAG Structures<a class="anchor" aria-label="anchor" href="#canonical-dag-structures"></a>
 </h2>
+<div class="section level3">
+<h3 id="fork-confounder">1. Fork (Confounder)<a class="anchor" aria-label="anchor" href="#fork-confounder"></a>
+</h3>
 <p>A common cause <strong>Z</strong> creates a spurious association
 between <strong>X</strong> and <strong>Y</strong>. Conditioning on
 <strong>Z</strong> blocks the backdoor path.</p>
@@ -89,9 +92,9 @@ Fork (Confounder)
 </p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="pipe-mediator">2. Pipe (Mediator)<a class="anchor" aria-label="anchor" href="#pipe-mediator"></a>
-</h2>
+<div class="section level3">
+<h3 id="pipe-mediator">2. Pipe (Mediator)<a class="anchor" aria-label="anchor" href="#pipe-mediator"></a>
+</h3>
 <p>The effect of <strong>X</strong> on <strong>Y</strong> is transmitted
 entirely through the mediator <strong>M</strong>. Conditioning on
 <strong>M</strong> blocks the causal path.</p>
@@ -112,9 +115,9 @@ Pipe (Mediator)
 </p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="collider">3. Collider<a class="anchor" aria-label="anchor" href="#collider"></a>
-</h2>
+<div class="section level3">
+<h3 id="collider">3. Collider<a class="anchor" aria-label="anchor" href="#collider"></a>
+</h3>
 <p><strong>X</strong> and <strong>Y</strong> are independent causes of
 <strong>C</strong>. Conditioning on the collider <strong>C</strong>
 opens a spurious path between <strong>X</strong> and
@@ -136,9 +139,9 @@ Collider
 </p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="instrumental-variable">4. Instrumental Variable<a class="anchor" aria-label="anchor" href="#instrumental-variable"></a>
-</h2>
+<div class="section level3">
+<h3 id="instrumental-variable">4. Instrumental Variable<a class="anchor" aria-label="anchor" href="#instrumental-variable"></a>
+</h3>
 <p><strong>Z</strong> is an instrument: it affects <strong>Y</strong>
 only through <strong>X</strong>. The unmeasured confounder
 <strong>U</strong> biases the naive <strong>X -&gt; Y</strong> estimate,
@@ -164,9 +167,9 @@ Instrumental Variable
 </p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="front-door-smoking-tar-cancer">5. Front-Door (Smoking-Tar-Cancer)<a class="anchor" aria-label="anchor" href="#front-door-smoking-tar-cancer"></a>
-</h2>
+<div class="section level3">
+<h3 id="front-door-smoking-tar-cancer">5. Front-Door (Smoking-Tar-Cancer)<a class="anchor" aria-label="anchor" href="#front-door-smoking-tar-cancer"></a>
+</h3>
 <p>Pearl’s canonical example. Unmeasured <strong>Genetics</strong>
 confounds <strong>Smoking</strong> and <strong>Cancer</strong>, but the
 front-door path through <strong>Tar</strong> allows identification.</p>
@@ -193,9 +196,9 @@ Front-Door Criterion
 </p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="m-bias-butterfly">6. M-Bias (Butterfly)<a class="anchor" aria-label="anchor" href="#m-bias-butterfly"></a>
-</h2>
+<div class="section level3">
+<h3 id="m-bias-butterfly">6. M-Bias (Butterfly)<a class="anchor" aria-label="anchor" href="#m-bias-butterfly"></a>
+</h3>
 <p>Adjusting for the collider <strong>M</strong> <em>increases</em>
 bias. <strong>U1</strong> and <strong>U2</strong> are unmeasured, but
 conditioning on <strong>M</strong> opens a spurious path between
@@ -225,9 +228,9 @@ M-Bias (Butterfly)
 </p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="simpsons-paradox-berkeley-admissions">7. Simpson’s Paradox (Berkeley Admissions)<a class="anchor" aria-label="anchor" href="#simpsons-paradox-berkeley-admissions"></a>
-</h2>
+<div class="section level3">
+<h3 id="simpsons-paradox-berkeley-admissions">7. Simpson’s Paradox (Berkeley Admissions)<a class="anchor" aria-label="anchor" href="#simpsons-paradox-berkeley-admissions"></a>
+</h3>
 <p><strong>Gender</strong> affects both <strong>Department</strong>
 choice and <strong>Admission</strong> directly. The marginal association
 reverses when conditioning on <strong>Department</strong>.</p>
@@ -249,6 +252,131 @@ reverses when conditioning on <strong>Department</strong>.</p>
 <img src="daggr_files/figure-html/simpson-1.png" class="r-plt" alt="Simpson's Paradox" width="1050"><p class="caption">
 Simpson’s Paradox
 </p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="advanced-features">Advanced Features<a class="anchor" aria-label="anchor" href="#advanced-features"></a>
+</h2>
+<div class="section level3">
+<h3 id="dgp-vs-measurement">DGP vs Measurement<a class="anchor" aria-label="anchor" href="#dgp-vs-measurement"></a>
+</h3>
+<p>Use <code>annotate()</code> to label layers, and
+<code>linetype</code> to distinguish causal relationships from observed
+associations.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># DGP layer</span></span>
+<span><span class="va">dgp_ideo</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Idéologie"</span><span class="op">)</span></span>
+<span><span class="va">dgp_behav</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Comportement"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">dgp_ideo</span>, <span class="st">"right"</span>, sep <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Measurement layer</span></span>
+<span><span class="va">meas_ideo</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Idéologie"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">dgp_ideo</span>, <span class="st">"bottom"</span>, sep <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">meas_behav</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Comportement"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">meas_ideo</span>, <span class="st">"right"</span>, sep <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/ggdiagram.html" class="external-link">ggdiagram</a></span><span class="op">(</span>font_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">dgp_ideo</span> <span class="op">+</span> <span class="va">dgp_behav</span> <span class="op">+</span></span>
+<span>  <span class="va">meas_ideo</span> <span class="op">+</span> <span class="va">meas_behav</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">dgp_ideo</span>, <span class="va">dgp_behav</span>, linetype <span class="op">=</span> <span class="st">"solid"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">meas_behav</span>, <span class="va">meas_ideo</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dgp_ideo</span><span class="op">@</span><span class="va">center</span><span class="op">@</span><span class="va">x</span>, <span class="va">dgp_behav</span><span class="op">@</span><span class="va">center</span><span class="op">@</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"DGP"</span>, fontface <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">meas_ideo</span><span class="op">@</span><span class="va">center</span><span class="op">@</span><span class="va">x</span>, <span class="va">meas_behav</span><span class="op">@</span><span class="va">center</span><span class="op">@</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Measurement"</span>, fontface <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="daggr_files/figure-html/dgp-measurement-1.png" class="r-plt" alt="DGP vs Measurement" width="1200"><p class="caption">
+DGP vs Measurement
+</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="mixed-node-shapes-and-linetypes">Mixed Node Shapes and Linetypes<a class="anchor" aria-label="anchor" href="#mixed-node-shapes-and-linetypes"></a>
+</h3>
+<p>Use <code><a href="../reference/dag_rectangle.html">dag_rectangle()</a></code> for observed/constructed variables
+and different <code>linetype</code> values to encode edge semantics
+(e.g., definitional links vs causal effects).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Intérêt politique"</span><span class="op">)</span></span>
+<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Autoplacement&lt;br&gt;Gauche-Droite"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">A</span>, <span class="st">"top left"</span>, sep <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
+<span><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"A voté&lt;br&gt;à la dernière&lt;br&gt;élection"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">A</span>, <span class="st">"top right"</span>, sep <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
+<span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_rectangle.html">dag_rectangle</a></span><span class="op">(</span><span class="st">"Extrémisme"</span>, fill <span class="op">=</span> <span class="st">"darkred"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">B</span>, <span class="st">"top"</span>, sep <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
+<span><span class="va">E</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_rectangle.html">dag_rectangle</a></span><span class="op">(</span><span class="st">"Participation&lt;br&gt;électorale"</span>, fill <span class="op">=</span> <span class="st">"darkred"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">C</span>, <span class="st">"top"</span>, sep <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/ggdiagram.html" class="external-link">ggdiagram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">A</span> <span class="op">+</span> <span class="va">B</span> <span class="op">+</span> <span class="va">C</span> <span class="op">+</span> <span class="va">D</span> <span class="op">+</span> <span class="va">E</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">D</span>, <span class="va">B</span>, linetype <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">E</span>, <span class="va">C</span>, linetype <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">B</span>, <span class="va">C</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">D</span>, <span class="va">E</span>, linetype <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="daggr_files/figure-html/polsci-1.png" class="r-plt" alt="Political Attitudes DAG" width="1350"><p class="caption">
+Political Attitudes DAG
+</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="multiline-labels">Multiline Labels<a class="anchor" aria-label="anchor" href="#multiline-labels"></a>
+</h3>
+<p>Node labels support <code>&lt;br&gt;</code> for line breaks, which is
+useful for longer variable names.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Years of&lt;br&gt;Education"</span><span class="op">)</span></span>
+<span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Political&lt;br&gt;Knowledge"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">X</span>, <span class="st">"right"</span>, sep <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Voter&lt;br&gt;Turnout"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">M</span>, <span class="st">"right"</span>, sep <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/ggdiagram.html" class="external-link">ggdiagram</a></span><span class="op">(</span>font_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">X</span> <span class="op">+</span> <span class="va">M</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">M</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">M</span>, <span class="va">Y</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, arc_bend <span class="op">=</span> <span class="op">-</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="daggr_files/figure-html/multiline-1.png" class="r-plt" alt="Multiline Labels" width="1050"><p class="caption">
+Multiline Labels
+</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="custom-colors">Custom Colors<a class="anchor" aria-label="anchor" href="#custom-colors"></a>
+</h3>
+<p>Change <code>fill</code> to distinguish different types of variables
+(e.g., treatment, outcome, unmeasured).</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Treatment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Treatment"</span>, fill <span class="op">=</span> <span class="st">"#2E7D32"</span><span class="op">)</span></span>
+<span><span class="va">Outcome</span>   <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Outcome"</span>, fill <span class="op">=</span> <span class="st">"#C62828"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">Treatment</span>, <span class="st">"right"</span>, sep <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">Confounder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Confounder"</span>, fill <span class="op">=</span> <span class="st">"#708090"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">Treatment</span>, <span class="st">"above right"</span>, sep <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
+<span><span class="va">Mediator</span>   <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dag_ellipse.html">dag_ellipse</a></span><span class="op">(</span><span class="st">"Mediator"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/place.html" class="external-link">place</a></span><span class="op">(</span><span class="va">Treatment</span>, <span class="st">"below right"</span>, sep <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://wjschne.github.io/ggdiagram/reference/ggdiagram.html" class="external-link">ggdiagram</a></span><span class="op">(</span>font_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">Treatment</span> <span class="op">+</span> <span class="va">Outcome</span> <span class="op">+</span> <span class="va">Confounder</span> <span class="op">+</span> <span class="va">Mediator</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">Treatment</span>, <span class="va">Outcome</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">Treatment</span>, <span class="va">Mediator</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">Mediator</span>, <span class="va">Outcome</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">Confounder</span>, <span class="va">Treatment</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">Confounder</span>, <span class="va">Outcome</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="daggr_files/figure-html/colors-1.png" class="r-plt" alt="Custom Node Colors" width="1200"><p class="caption">
+Custom Node Colors
+</p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
