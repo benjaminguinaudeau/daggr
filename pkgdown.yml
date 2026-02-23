@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  daggr: daggr.html
+last_built: 2026-02-23T21:50Z
+urls:
+  reference: https://benjaminguinaudeau.github.io/daggr/reference
+  article: https://benjaminguinaudeau.github.io/daggr/articles
