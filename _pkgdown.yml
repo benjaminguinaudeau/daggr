@@ -1,0 +1,24 @@
+url: https://benjaminguinaudeau.github.io/daggr/
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [intro, reference]
+    right: [search, github]
+
+reference:
+  - title: "Nodes"
+    contents:
+      - dag_ellipse
+      - dag_rectangle
+  - title: "Edges"
+    contents:
+      - dag_connect
+  - title: "Theme"
+    contents:
+      - theme_dag
+  - title: "Re-exports"
+    contents:
+      - reexports

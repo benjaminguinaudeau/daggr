@@ -18,7 +18,11 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
+URL: https://benjaminguinaudeau.github.io/daggr/,
+    https://github.com/benjaminguinaudeau/daggr
+BugReports: https://github.com/benjaminguinaudeau/daggr/issues
 Config/testthat/edition: 3
+Config/Needs/website: pkgdown
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

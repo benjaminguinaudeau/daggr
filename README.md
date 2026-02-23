@@ -1,0 +1,47 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# daggr <img src="man/figures/logo.png" align="right" height="139" />
+
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+**daggr** wraps [ggdiagram](https://github.com/wjschne/ggdiagram) and
+[ggarrow](https://github.com/teunbrand/ggarrow) with opinionated
+defaults so you can draw clean DAGs in 3 lines instead of 30.
+
+## Installation
+
+``` r
+# install.packages("pak")
+pak::pak("benjaminguinaudeau/daggr")
+```
+
+## Example
+
+``` r
+library(daggr)
+
+# Create nodes
+x <- dag_ellipse("X", a = 1.2, b = 0.7)
+z <- dag_ellipse("Z", a = 1.2, b = 0.7) |> place(from = x, where = "right", sep = 4)
+y <- dag_ellipse("Y", a = 1.2, b = 0.7) |> place(from = x, where = "southeast", sep = 3)
+
+# Draw the DAG
+ggdiagram() +
+  x + z + y +
+  dag_connect(x, z) +
+  dag_connect(x, y) +
+  dag_connect(z, y) +
+  theme_dag()
+```
+
+<img src="man/figures/README-example-1.png" width="60%" />
+
+## Learn more
+
+- [Function
+  reference](https://benjaminguinaudeau.github.io/daggr/reference/)

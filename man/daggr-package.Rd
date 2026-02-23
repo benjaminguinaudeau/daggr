@@ -6,7 +6,18 @@
 \alias{daggr-package}
 \title{daggr: Quick DAG Diagrams with Sensible Defaults}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Wraps 'ggdiagram' and 'ggarrow' with opinionated defaults for drawing directed acyclic graphs (DAGs). Provides styled node constructors, a connection helper, and a clean theme so that 'library(daggr)' replaces ~30 lines of boilerplate setup.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://benjaminguinaudeau.github.io/daggr/}
+  \item \url{https://github.com/benjaminguinaudeau/daggr}
+  \item Report bugs at \url{https://github.com/benjaminguinaudeau/daggr/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Benjamin Guinaudeau \email{benjamin.guinaudeau@gmail.com}
