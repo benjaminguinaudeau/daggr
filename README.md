@@ -43,5 +43,11 @@ ggdiagram() +
 
 ## Learn more
 
+- [Getting
+  started](https://benjaminguinaudeau.github.io/daggr/articles/daggr.html)
+  — canonical DAG structures and basic features
+- [DAG
+  Gallery](https://benjaminguinaudeau.github.io/daggr/articles/gallery.html)
+  — complex real-world examples
 - [Function
   reference](https://benjaminguinaudeau.github.io/daggr/reference/)

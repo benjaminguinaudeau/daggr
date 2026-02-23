@@ -5,8 +5,14 @@ template:
 
 navbar:
   structure:
-    left: [intro, reference]
+    left: [intro, reference, articles]
     right: [search, github]
+
+articles:
+  - title: "Guides"
+    contents:
+      - daggr
+      - gallery
 
 reference:
   - title: "Nodes"
