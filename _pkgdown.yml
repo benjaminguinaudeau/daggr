@@ -19,9 +19,15 @@ reference:
     contents:
       - dag_ellipse
       - dag_rectangle
+      - dag_node
   - title: "Edges"
     contents:
       - dag_connect
+      - dag_edge
+      - dag_edges
+  - title: "Colors"
+    contents:
+      - dag_fills
   - title: "Theme"
     contents:
       - theme_dag

@@ -175,6 +175,74 @@ ggdiagram(font_size = 14) +
   ggplot2::labs(title = "Simpson's Paradox")
 ```
 
+## Reducing Boilerplate
+
+### Semantic Colors with `dag_fills`
+
+Instead of repeating hex codes like `"#708090"` throughout your DAG, use the
+built-in `dag_fills` palette. It provides autocomplete-friendly names for common
+variable types:
+
+```{r fills-demo, eval = FALSE}
+dag_fills$treatment   # "#2E7D32" (green)
+dag_fills$outcome     # "#C62828" (red)
+dag_fills$unmeasured  # "#708090" (slate gray)
+```
+
+```{r fills-example, fig.cap = "Using dag_fills"}
+Z <- dag_ellipse("Z", fill = dag_fills$instrument)
+X <- dag_ellipse("X", fill = dag_fills$treatment) |>
+  place(from = Z, where = "right", sep = 2.5)
+Y <- dag_ellipse("Y", fill = dag_fills$outcome) |>
+  place(from = X, where = "right", sep = 2.5)
+U <- dag_ellipse("U", fill = dag_fills$unmeasured) |>
+  place(from = X, where = "above right", sep = 2.5)
+
+ggdiagram(font_size = 14) +
+  Z + X + Y + U +
+  dag_connect(Z, X) +
+  dag_connect(X, Y) +
+  dag_connect(U, X) +
+  dag_connect(U, Y) +
+  theme_dag() +
+  ggplot2::labs(title = "Instrumental Variable (with dag_fills)")
+```
+
+### Batch Edges with `dag_edges()`
+
+For DAGs with many edges, `dag_edges()` lets you define all connections in one
+block instead of chaining separate `dag_connect()` calls. Shared defaults
+(`resect`, `color`) are specified once; per-edge overrides go inside each
+`dag_edge()`.
+
+```{r batch-edges, fig.cap = "Mediation DAG with dag_edges()", fig.width = 8, fig.height = 5}
+X  <- dag_ellipse("Treatment", fill = dag_fills$treatment)
+M  <- dag_ellipse("Mediator") |> place(X, "right", sep = 4)
+Y  <- dag_ellipse("Outcome", fill = dag_fills$outcome) |>
+  place(M, "right", sep = 4)
+C1 <- dag_ellipse("C1", fill = dag_fills$unmeasured) |>
+  place(X, "above", sep = 2.5)
+C2 <- dag_ellipse("C2", fill = dag_fills$unmeasured) |>
+  place(M, "above", sep = 2.5)
+U  <- dag_ellipse("U", fill = dag_fills$latent) |>
+  place(Y, "above", sep = 2.5)
+
+ggdiagram(font_size = 14) +
+  X + M + Y + C1 + C2 + U +
+  dag_edges(
+    dag_edge(X, M),
+    dag_edge(M, Y),
+    dag_edge(X, Y, arc_bend = 0.4),
+    dag_edge(C1, X),
+    dag_edge(C1, M, arc_bend = -0.2),
+    dag_edge(C2, M),
+    dag_edge(C2, Y),
+    dag_edge(U, M, linetype = "dashed"),
+    dag_edge(U, Y, linetype = "dashed")
+  ) +
+  theme_dag()
+```
+
 ## Advanced Features
 
 ### DGP vs Measurement

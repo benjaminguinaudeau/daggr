@@ -167,7 +167,8 @@ ggdiagram(font_size = 14) +
 ## Media Effects
 
 A multi-step model of media influence on political behavior, with both direct
-and mediated pathways.
+and mediated pathways. Uses `dag_fills` and `dag_edges()` to keep the code
+compact.
 
 ```{r media, fig.height = 7}
 media    <- dag_ellipse("Media<br>Exposure")
@@ -177,53 +178,59 @@ opinion  <- dag_ellipse("Public<br>Opinion") |>
   place(framing, "right", sep = 4)
 turnout  <- dag_ellipse("Voter<br>Turnout") |>
   place(opinion, "below", sep = 3)
-partisan <- dag_ellipse("Partisanship", fill = "#708090") |>
+partisan <- dag_ellipse("Partisanship", fill = dag_fills$unmeasured) |>
   place(media, "below", sep = 3)
-ses      <- dag_rectangle("SES", fill = "#5D4037") |>
+ses      <- dag_rectangle("SES", fill = dag_fills$instrument) |>
   place(partisan, "left", sep = 3)
 
 ggdiagram(font_size = 14) +
   media + framing + opinion + turnout + partisan + ses +
-  dag_connect(media, framing) +
-  dag_connect(framing, opinion) +
-  dag_connect(opinion, turnout) +
-  dag_connect(media, opinion, arc_bend = -0.3) +
-  dag_connect(partisan, media) +
-  dag_connect(partisan, opinion) +
-  dag_connect(partisan, turnout) +
-  dag_connect(ses, media) +
-  dag_connect(ses, partisan) +
-  dag_connect(ses, turnout) +
+  dag_edges(
+    dag_edge(media, framing),
+    dag_edge(framing, opinion),
+    dag_edge(opinion, turnout),
+    dag_edge(media, opinion, arc_bend = -0.3),
+    dag_edge(partisan, media),
+    dag_edge(partisan, opinion),
+    dag_edge(partisan, turnout),
+    dag_edge(ses, media),
+    dag_edge(ses, partisan),
+    dag_edge(ses, turnout)
+  ) +
   theme_dag()
 ```
 
 ## Mediation with Confounders
 
 A complete mediation analysis DAG with treatment-induced and
-exposure-induced confounders.
+exposure-induced confounders. This example uses `dag_fills` for semantic
+colors and `dag_edges()` to define all connections in a single block.
 
 ```{r mediation, fig.height = 7}
-X <- dag_ellipse("Treatment", fill = "#2E7D32")
-M <- dag_ellipse("Mediator") |> place(X, "right", sep = 4)
-Y <- dag_ellipse("Outcome", fill = "#C62828") |> place(M, "right", sep = 4)
-C1 <- dag_ellipse("C1", fill = "#708090") |>
+X  <- dag_ellipse("Treatment", fill = dag_fills$treatment)
+M  <- dag_ellipse("Mediator") |> place(X, "right", sep = 4)
+Y  <- dag_ellipse("Outcome", fill = dag_fills$outcome) |>
+  place(M, "right", sep = 4)
+C1 <- dag_ellipse("C1", fill = dag_fills$unmeasured) |>
   place(X, "above", sep = 2.5)
-C2 <- dag_ellipse("C2", fill = "#708090") |>
+C2 <- dag_ellipse("C2", fill = dag_fills$unmeasured) |>
   place(M, "above", sep = 2.5)
-U  <- dag_ellipse("U", fill = "#B0BEC5") |>
+U  <- dag_ellipse("U", fill = dag_fills$latent) |>
   place(Y, "above", sep = 2.5)
 
 ggdiagram(font_size = 14) +
   X + M + Y + C1 + C2 + U +
-  dag_connect(X, M) +
-  dag_connect(M, Y) +
-  dag_connect(X, Y, arc_bend = 0.4) +
-  dag_connect(C1, X) +
-  dag_connect(C1, M, arc_bend = -0.2) +
-  dag_connect(C2, M) +
-  dag_connect(C2, Y) +
-  dag_connect(U, M, linetype = "dashed") +
-  dag_connect(U, Y, linetype = "dashed") +
+  dag_edges(
+    dag_edge(X, M),
+    dag_edge(M, Y),
+    dag_edge(X, Y, arc_bend = 0.4),
+    dag_edge(C1, X),
+    dag_edge(C1, M, arc_bend = -0.2),
+    dag_edge(C2, M),
+    dag_edge(C2, Y),
+    dag_edge(U, M, linetype = "dashed"),
+    dag_edge(U, Y, linetype = "dashed")
+  ) +
   theme_dag()
 ```
 
