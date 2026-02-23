@@ -1,0 +1,24 @@
+Package: daggr
+Title: Quick DAG Diagrams with Sensible Defaults
+Version: 0.0.0.9000
+Authors@R:
+    person("Benjamin", "Guinaudeau", , "benjamin.guinaudeau@gmail.com", role = c("aut", "cre"))
+Description: Wraps 'ggdiagram' and 'ggarrow' with opinionated defaults for
+    drawing directed acyclic graphs (DAGs). Provides styled node
+    constructors, a connection helper, and a clean theme so that
+    'library(daggr)' replaces ~30 lines of boilerplate setup.
+License: MIT + file LICENSE
+Imports:
+    ggarrow,
+    ggdiagram (>= 0.1.1),
+    ggplot2 (>= 4.0.0),
+    rlang
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
