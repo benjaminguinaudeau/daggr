@@ -6,11 +6,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Getting Started with daggr • daggr</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
-<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
-<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="icon" sizes="any" href="../favicon.ico">
-<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -34,7 +29,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/daggr.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../articles/daggr.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
       </ul>
@@ -58,7 +53,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Getting Started with daggr</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/benjaminguinaudeau/daggr/blob/HEAD/vignettes/daggr.Rmd" class="external-link"><code>vignettes/daggr.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/benjaminguinaudeau/daggr/blob/main/vignettes/daggr.Rmd" class="external-link"><code>vignettes/daggr.Rmd</code></a></small>
       <div class="d-none name"><code>daggr.Rmd</code></div>
     </div>
 
@@ -93,7 +88,7 @@ between <strong>X</strong> and <strong>Y</strong>. Conditioning on
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Fork (Confounder)"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/fork-1.png" alt="Fork (Confounder)" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/fork-1.png" class="r-plt" alt="Fork (Confounder)" width="1050"><p class="caption">
 Fork (Confounder)
 </p>
 </div>
@@ -116,7 +111,7 @@ entirely through the mediator <strong>M</strong>. Conditioning on
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pipe (Mediator)"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/pipe-1.png" alt="Pipe (Mediator)" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/pipe-1.png" class="r-plt" alt="Pipe (Mediator)" width="1050"><p class="caption">
 Pipe (Mediator)
 </p>
 </div>
@@ -140,7 +135,7 @@ opens a spurious path between <strong>X</strong> and
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Collider"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/collider-1.png" alt="Collider" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/collider-1.png" class="r-plt" alt="Collider" width="1050"><p class="caption">
 Collider
 </p>
 </div>
@@ -168,7 +163,7 @@ but the instrument identifies the causal effect.</p>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Instrumental Variable"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/iv-1.png" alt="Instrumental Variable" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/iv-1.png" class="r-plt" alt="Instrumental Variable" width="1050"><p class="caption">
 Instrumental Variable
 </p>
 </div>
@@ -197,7 +192,7 @@ front-door path through <strong>Tar</strong> allows identification.</p>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Front-Door Criterion"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/frontdoor-1.png" alt="Front-Door Criterion" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/frontdoor-1.png" class="r-plt" alt="Front-Door Criterion" width="1050"><p class="caption">
 Front-Door Criterion
 </p>
 </div>
@@ -229,7 +224,7 @@ conditioning on <strong>M</strong> opens a spurious path between
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"M-Bias (Butterfly)"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/mbias-1.png" alt="M-Bias (Butterfly)" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/mbias-1.png" class="r-plt" alt="M-Bias (Butterfly)" width="1050"><p class="caption">
 M-Bias (Butterfly)
 </p>
 </div>
@@ -255,7 +250,7 @@ reverses when conditioning on <strong>Department</strong>.</p>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Simpson's Paradox"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/simpson-1.png" alt="Simpson's Paradox" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/simpson-1.png" class="r-plt" alt="Simpson's Paradox" width="1050"><p class="caption">
 Simpson’s Paradox
 </p>
 </div>
@@ -292,7 +287,7 @@ autocomplete-friendly names for common variable types:</p>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Instrumental Variable (with dag_fills)"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/fills-example-1.png" alt="Using dag_fills" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/fills-example-1.png" class="r-plt" alt="Using dag_fills" width="1050"><p class="caption">
 Using dag_fills
 </p>
 </div>
@@ -332,7 +327,7 @@ each <code><a href="../reference/dag_edge.html">dag_edge()</a></code>.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/batch-edges-1.png" alt="Mediation DAG with dag_edges()" width="1200"><p class="caption">
+<img src="daggr_files/figure-html/batch-edges-1.png" class="r-plt" alt="Mediation DAG with dag_edges()" width="1200"><p class="caption">
 Mediation DAG with dag_edges()
 </p>
 </div>
@@ -372,7 +367,7 @@ associations.</p>
 <span>    y <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Measurement"</span>, fontface <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/dgp-measurement-1.png" alt="DGP vs Measurement" width="1200"><p class="caption">
+<img src="daggr_files/figure-html/dgp-measurement-1.png" class="r-plt" alt="DGP vs Measurement" width="1200"><p class="caption">
 DGP vs Measurement
 </p>
 </div>
@@ -404,7 +399,7 @@ and different <code>linetype</code> values to encode edge semantics
 <span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">D</span>, <span class="va">E</span>, linetype <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/polsci-1.png" alt="Political Attitudes DAG" width="1350"><p class="caption">
+<img src="daggr_files/figure-html/polsci-1.png" class="r-plt" alt="Political Attitudes DAG" width="1350"><p class="caption">
 Political Attitudes DAG
 </p>
 </div>
@@ -428,7 +423,7 @@ useful for longer variable names.</p>
 <span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, arc_bend <span class="op">=</span> <span class="op">-</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/multiline-1.png" alt="Multiline Labels" width="1050"><p class="caption">
+<img src="daggr_files/figure-html/multiline-1.png" class="r-plt" alt="Multiline Labels" width="1050"><p class="caption">
 Multiline Labels
 </p>
 </div>
@@ -456,7 +451,7 @@ Multiline Labels
 <span>  <span class="fu"><a href="../reference/dag_connect.html">dag_connect</a></span><span class="op">(</span><span class="va">Confounder</span>, <span class="va">Outcome</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_dag.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="daggr_files/figure-html/colors-1.png" alt="Custom Node Colors" width="1200"><p class="caption">
+<img src="daggr_files/figure-html/colors-1.png" class="r-plt" alt="Custom Node Colors" width="1200"><p class="caption">
 Custom Node Colors
 </p>
 </div>
@@ -473,7 +468,7 @@ Custom Node Colors
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
